@@ -1,0 +1,7 @@
+- push the first commit into the branch (dev) but create another branch just in case
+
+- create a basic controller CRUD
+
+- create a service where can be handled cron job (cancel one or modify it. e.g: 1m, 5m and so on)
+
+- create the dababase and later define tables wiht its proper fiedls
