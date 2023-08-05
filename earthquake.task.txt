@@ -1,7 +1,54 @@
-- push the first commit into the branch (dev) but create another branch just in case
+- push the first commit into the branch (dev) but create another branch just in case** done
 
-- create a basic controller CRUD
+- create a basic controller CRUD ** this one is going to be the 3th one
 
-- create a service where can be handled cron job (cancel one or modify it. e.g: 1m, 5m and so on)
+- create a service where can be handled cron job (cancel one or modify it. e.g: 1m, 5m and so on) ** this one is the 2th one
 
-- create the dababase and later define tables wiht its proper fiedls
+- create the dababase and later define tables wiht its proper fiedls ** this one is the 4th one
+
+- create winston servive to catch every request (from the client to api) and response (from api to the client) and save it into a file (preferly named it with the current date plus something else) ** this one is the 5th one
+
+- use ioredis to catch every response and set up the expire time like 15 seg. this can be implemented to fetch data from the external api using cron-job and compare if it has the same values) ** this one is the 6th one
+
+[
+  {
+    geometry: { type: 'Point', coordinates: [Array] },
+    type: 'Feature',
+    properties: {
+      lastupdate: '2013-08-28T16:25:53.959903Z',
+      magtype: 'ML',
+      evtype: 'ke',
+      lon: -0.5296,
+      auth: 'EMSC',
+      source_id: '622161',
+      depth: 12,
+      unid: '20111231_0000287',
+      mag: 2,
+      time: '2011-12-31T23:59:33.3Z',
+      lat: 43.337,
+      source_catalog: 'EMSC-EMB',
+      flynn_region: 'PYRENEES'
+    },
+    id: '20111231_0000287'
+  },
+  {
+    geometry: { type: 'Point', coordinates: [Array] },
+    type: 'Feature',
+    properties: {
+      lastupdate: '2013-08-28T16:25:52.8407Z',
+      magtype: 'ML',
+      evtype: 'ke',
+      lon: 24.0382,
+      auth: 'EMSC',
+      source_id: '622160',
+      depth: 18,
+      unid: '20111231_0000487',
+      mag: 1.8,
+      time: '2011-12-31T23:58:26.5Z',
+      lat: 40.15,
+      source_catalog: 'EMSC-EMB',
+      flynn_region: 'AEGEAN SEA'
+    },
+    id: '20111231_0000487'
+  }
+]
