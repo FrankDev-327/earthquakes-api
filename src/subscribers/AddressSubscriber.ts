@@ -32,15 +32,7 @@ export class AddressSubscriber implements EntitySubscriberInterface<Seismic> {
         this.geo.gettingApproxAddress(geoPayload, process.env.GEO_LOCATION_URL)
         .then(async (geoResponse) => {
             const properties = geoResponse.data.features[0].properties;
-
-            const addressPayload: IAddressPayload = {
-                country: properties?.country,
-                city: properties?.city,
-                district: properties?.district,
-                neighbourhood: properties?.neighbourhood,
-                street: properties?.street,
-                country_code: properties?.country_code
-            };
+            const addressPayload = await this.settingAddressProperties(properties);
     
             const addressSaved = await this.addressService.storeAddressData(addressPayload);
             model.address = addressSaved;
@@ -50,6 +42,18 @@ export class AddressSubscriber implements EntitySubscriberInterface<Seismic> {
             console.log(e);
             process.exit(1);
         });
-      
+    }
+
+    private async settingAddressProperties(properties) {
+        const result :IAddressPayload = {
+            country: properties?.country,
+            city: properties?.city,
+            district: properties?.district,
+            neighbourhood: properties?.neighbourhood,
+            street: properties?.street,
+            country_code: properties?.country_code
+        };
+
+        return result;
     }
 }

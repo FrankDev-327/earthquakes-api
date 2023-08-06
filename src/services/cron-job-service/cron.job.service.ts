@@ -1,6 +1,6 @@
 import * as schedule from "node-schedule";
-import { SeismicService } from "../seismic-service/seismic.service";
 import { AxiosService } from '../axios-services/axios.service';
+import { SeismicService } from "../seismic-service/seismic.service";
 
 export class CronJob {
     private seismicService: SeismicService;
@@ -30,10 +30,9 @@ export class CronJob {
             this.seismicService.storeSeismicInfo(dataToInsert)
             .then(() => {
                 console.log('data was inserted');
-                
             })
             .catch(e => {
-                console.log('there is a error');
+                console.log('there is an error');
                 console.log(e);
             });
             

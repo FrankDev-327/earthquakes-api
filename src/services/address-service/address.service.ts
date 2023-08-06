@@ -2,7 +2,6 @@ import { Address } from "../../entities/address";
 import { IAddressPayload } from "../../interfaces/address.interface";
 import { AddressRepository } from "../../repository/addresss.repository";
 
-
 export class AddressService {
     private addressRepository: AddressRepository;
     
