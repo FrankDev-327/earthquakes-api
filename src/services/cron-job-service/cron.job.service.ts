@@ -8,34 +8,34 @@ export class CronJob {
         this.seismicService = new SeismicService();
     }
     
-    async scheduling(queryString) {
+    async scheduling(queryString, url) {
         const dataToInsert = [];
         const rule = new schedule.RecurrenceRule();
         rule.second = 10,
-        
+
         schedule.scheduleJob(rule, async () => {        
-            const response = await AxiosService.fetchDataForCronJob(queryString);
+            const response = await AxiosService.fetchDataForCronJob(queryString, url);
             response.data.features.map( async (item) => {
                 dataToInsert.push({
                     type: item.type,
-                    geometry : item.geometry,
-                    lastupdate: item.properties.lastupdate,
-                    magtype: item.properties.magtype,
-                    evtype: item.properties.evtype,
-                    lon: item.properties.lon,
-                    auth: item.properties.auth,
-                    source_id: item.properties.source_id,
-                    depth: item.properties.depth,
-                    unid: item.properties.unid,
-                    mag: item.properties.mag,
-                    lat: item.properties.lat,
-                    source_catalog: item.properties.source_catalog,
-                    flynn_region: item.properties.flynn_region,
+                    geometry : {
+                        type: item.geometry.type,
+                        coordinates: item.geometry.coordinates
+                    },
+                    ...item.properties,
                     id_feature: item.id,
                 });
             });
-            const dataStored = await this.seismicService.storeSeismicInfo(dataToInsert);
-            console.log(dataStored);
+            
+            this.seismicService.storeSeismicInfo(dataToInsert)
+            .then(() => {
+                console.log('data was inserted');
+                
+            })
+            .catch(e => {
+                console.log('there is a error');
+                console.log(e);
+            });
             
         });
     }

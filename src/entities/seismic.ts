@@ -1,17 +1,32 @@
-import { BeforeInsert, Column, Entity } from "typeorm"
+import { Address } from "./address";
 import { BaseModelEntity } from "./base.model.entity";
+import { Column, Entity, Index, Point, Unique, OneToOne, JoinColumn } from "typeorm";
 
+/* @Unique([
+  'lastupdate', 
+  'time',
+  'type',
+  'geometry',
+  'magtype',
+  'evtype',
+  'lon',
+  'lat',
+  'auth',
+  'source_id',
+  'depth',
+  'unid',
+  'mag',
+  'source_catalog',
+  'flynn_region'
+]) */
 @Entity('seismic')
 export class Seismic extends BaseModelEntity {
     @Column()
     type: string;
 
-    @Column({ type: 'simple-json' })
-    geometry: {
-      type: string;
-      coordinates: number[];
-    };
-  
+    @Column("geometry",)
+    geometry: Point;
+
     @Column()
     lastupdate: string;
   
@@ -21,13 +36,16 @@ export class Seismic extends BaseModelEntity {
     @Column()
     evtype: string;
   
-    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+    @Index('idx_name_lon')
+    @Column({type: "decimal", precision: 10, scale: 5, default: 0})
     lon: number;
 
-    @Column({
-      nullable: true
+    @OneToOne(() => Address, {
+      createForeignKeyConstraints: true,
+        onDelete: 'CASCADE'
     })
-    approx_address: string;
+    @JoinColumn({name: 'address_id'})
+    address: Address;
   
     @Column()
     auth: string;
@@ -44,12 +62,11 @@ export class Seismic extends BaseModelEntity {
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
     mag: number;
   
-    @Column({
-      nullable: true
-    })
+    @Column()
     time: string;
   
-    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+    @Index('idx_name_lan')
+    @Column({type: "decimal", precision: 10, scale: 5, default: 0})
     lat: number;
   
     @Column()
@@ -58,11 +75,7 @@ export class Seismic extends BaseModelEntity {
     @Column()
     flynn_region: string;
   
+    @Index('idx_name_id_features')
     @Column()
     id_feature: string;
-
-    @BeforeInsert()
-    async gettingNameLocation() {
-        
-    }
 }

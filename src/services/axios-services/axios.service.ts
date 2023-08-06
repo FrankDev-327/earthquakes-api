@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export class AxiosService {
-    static async fetchDataForCronJob(queryString) {
-        return await axios.get(process.env.FDSN_URL, {
+    static async fetchDataForCronJob(queryString, url) {
+        return await axios.get(url, {
             params: queryString
         });
     }

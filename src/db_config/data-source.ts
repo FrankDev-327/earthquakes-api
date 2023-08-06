@@ -1,6 +1,8 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm";
+import { Address } from "../entities/address";
 import { Seismic } from "../entities/seismic";
+import { AddressSubscriber } from "../subscribers/AddressSubscriber";
 
 const config = new DataSource({
     type: "postgres",
@@ -8,7 +10,8 @@ const config = new DataSource({
     ssl: true,
     synchronize: process.env.NODE_ENV !== 'prod',
     logging: process.env.NODE_ENV !== 'prod',
-    entities: [Seismic],
+    entities: [Seismic, Address],
+    subscribers:[AddressSubscriber],
 })
 
 
