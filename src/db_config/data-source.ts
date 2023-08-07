@@ -9,10 +9,9 @@ const config = new DataSource({
     url: process.env.DB_URL,
     ssl: true,
     synchronize: process.env.NODE_ENV !== 'prod',
-    logging: process.env.NODE_ENV !== 'prod',
+    logging: false,
     entities: [Seismic, Address],
     subscribers:[AddressSubscriber],
-})
-
+});
 
 export default config;

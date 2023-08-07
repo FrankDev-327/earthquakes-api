@@ -1,9 +1,9 @@
-import { Get, Route, Tags, Query, Path} from "tsoa";
-import { SeismicService } from "../services/seismic-service/seismic.service";
-import { IPaginationPayload } from "../interfaces/pagination.interface";
 import { Seismic } from "../entities/seismic";
-import { RedisService } from "../services/redis-service/redis.service";
+import { Get, Route, Tags, Query, Path} from "tsoa";
 import { IBetweenDatePayload } from "../interfaces/between.date";
+import { RedisService } from "../services/redis-service/redis.service";
+import { IPaginationPayload } from "../interfaces/pagination.interface";
+import { SeismicService } from "../services/seismic-service/seismic.service";
 
 @Route("earthquake")
 @Tags("Earthquake")
@@ -28,6 +28,7 @@ export class SeismicController {
             data = await this.redisService.getRedis('seismic_info');
         }
 
+       
         return data;
     }
 
