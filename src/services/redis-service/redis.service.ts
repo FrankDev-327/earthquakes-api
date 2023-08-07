@@ -4,7 +4,7 @@ export class RedisService {
     private redis = RedisCommand.getRedisConnectionInstande();
 
     async setObjectKey(key:string, valueObject): Promise<string> {
-        return await this.redis.set(key, JSON.stringify(valueObject), "EX", 10);
+        return await this.redis.set(key, JSON.stringify(valueObject), "EX", 30);
     }
 
     async getRedis(key:string): Promise<any> {

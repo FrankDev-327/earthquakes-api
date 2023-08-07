@@ -1,6 +1,8 @@
+import { DateRange } from "../utils/helper";
 import { Seismic } from "../entities/seismic";
 import { InitAppSource } from "../db_init/db.init";
-import { Between, Like, In } from "typeorm";
+import { Between, Like, In, MoreThan } from "typeorm";
+import { IRangePayload } from "../interfaces/range.interface";
 import { IBetweenDatePayload } from "../interfaces/between.date";
 import { ISeismicPayload } from "../interfaces/seismic.interface";
 import { IPaginationPayload } from "../interfaces/pagination.interface";
@@ -25,7 +27,10 @@ export class SeismicRepository {
     }
 
     async getDetails(id: string): Promise<Seismic> {
-        return await this.seismicRepository.findBy({id});
+        return await this.seismicRepository.findOne({
+            where:{id},
+            relations:['address']
+        });
     }
 
     async updateData(seismic: Seismic): Promise<Seismic> {
@@ -53,6 +58,36 @@ export class SeismicRepository {
                 )
             },
             relations:['address']
+        });
+    }
+
+    async getByCountryData(country: string): Promise<Seismic[]> {
+        return await this.seismicRepository.find({
+            order: {
+                id: 'DESC'
+            },
+            relations: ['address'],
+            where:{
+                address: {
+                    country: country
+                }
+            }
+        });
+    }
+
+    async getByRangeData(payload: IRangePayload): Promise<Seismic[]> {
+        const statement = DateRange.definingRange(payload.extent);    
+        return await this.seismicRepository.find({
+            order: {
+                id: 'DESC'
+            },
+            relations: ['address'],
+            where:{
+                time: MoreThan(statement),
+                address: {
+                    country: payload.place
+                }
+            }
         });
     }
 

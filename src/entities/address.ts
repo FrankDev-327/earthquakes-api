@@ -1,5 +1,6 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn } from "typeorm";
 import { BaseModelEntity } from "./base.model.entity";
+import { Seismic } from "./seismic";
 
 @Entity('address')
 export class Address extends BaseModelEntity {
@@ -32,4 +33,8 @@ export class Address extends BaseModelEntity {
         nullable: true
     })
     country_code: string;
+
+    @OneToOne(() => Seismic, (seismic) => seismic.address)
+    @JoinColumn()
+    seismic: Seismic;
 }

@@ -1,9 +1,5 @@
 import * as winston from 'winston';
 
-const level = () => {
-  return process.env.NODE_ENV === 'dev' ? 'http' : 'info';
-}
-
 const Logger = winston.createLogger({
   level: 'http',
   format: winston.format.combine(

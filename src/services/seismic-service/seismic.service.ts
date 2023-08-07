@@ -1,4 +1,5 @@
 import { Seismic } from "../../entities/seismic";
+import { IRangePayload } from "../../interfaces/range.interface";
 import { IBetweenDatePayload } from "../../interfaces/between.date";
 import { ISeismicPayload } from "../../interfaces/seismic.interface";
 import { SeismicRepository } from "../../repository/seismic.repository";
@@ -29,5 +30,13 @@ export class SeismicService {
 
     async updateSeismicData(payload: Seismic): Promise<Seismic> {
         return await this.seismicRepository.updateData(payload);
+    }
+
+    async getSeismicByCountryData(country: string): Promise<Seismic[]> {
+        return await this.seismicRepository.getByCountryData(country);
+    }
+
+    async getSeismicByRangeData(payload: IRangePayload): Promise<Seismic[]> {
+        return await this.seismicRepository.getByRangeData(payload);
     }
 }

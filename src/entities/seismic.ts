@@ -40,7 +40,7 @@ export class Seismic extends BaseModelEntity {
     @Column({type: "decimal", precision: 10, scale: 5, default: 0})
     lon: number;
 
-    @OneToOne(() => Address, {
+    @OneToOne(() => Address, (address) => address.seismic, {
       createForeignKeyConstraints: true,
         onDelete: 'CASCADE'
     })

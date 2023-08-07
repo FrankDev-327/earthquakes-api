@@ -1,6 +1,7 @@
 import { Address } from "../../entities/address";
 import { IAddressPayload } from "../../interfaces/address.interface";
 import { AddressRepository } from "../../repository/addresss.repository";
+import { IAddressPaginationPayload } from "../../interfaces/address.pagination.interface";
 
 export class AddressService {
     private addressRepository: AddressRepository;
@@ -15,5 +16,13 @@ export class AddressService {
 
     async getListAddresses(): Promise<Address[]> {
         return await this.addressRepository.getList();
+    }
+
+    async getAddressPaginationData(query: IAddressPaginationPayload): Promise<Address[]> {
+        return await this.addressRepository.getPaginationData(query);
+    }
+
+    async getAddressDetailsById(id: string): Promise<Address> {
+        return await this.addressRepository.getDetailsById(id);
     }
 }
