@@ -4,7 +4,7 @@ export class RedisCommand {
   
     static getRedisConnectionInstande() {
         return new Redis(process.env.REDIS_URL, {
-          maxRetriesPerRequest: null,
+          maxRetriesPerRequest: 10,
         });
       }
     

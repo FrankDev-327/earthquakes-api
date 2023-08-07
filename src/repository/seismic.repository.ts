@@ -64,7 +64,7 @@ export class SeismicRepository {
     async getByCountryData(country: string): Promise<Seismic[]> {
         return await this.seismicRepository.find({
             order: {
-                id: 'DESC'
+                id: 'ASC'
             },
             relations: ['address'],
             where:{
@@ -79,7 +79,7 @@ export class SeismicRepository {
         const statement = DateRange.definingRange(payload.extent);    
         return await this.seismicRepository.find({
             order: {
-                id: 'DESC'
+                id: 'ASC'
             },
             relations: ['address'],
             where:{

@@ -1,10 +1,10 @@
-import { Seismic } from "../entities/seismic";
+import { Seismic } from "../../entities/seismic";
 import { Get, Route, Tags, Query, Path} from "tsoa";
-import { IRangePayload } from "../interfaces/range.interface";
-import { IBetweenDatePayload } from "../interfaces/between.date";
-import { RedisService } from "../services/redis-service/redis.service";
-import { IPaginationPayload } from "../interfaces/pagination.interface";
-import { SeismicService } from "../services/seismic-service/seismic.service";
+import { IRangePayload } from "../../interfaces/range.interface";
+import { IBetweenDatePayload } from "../../interfaces/between.date";
+import { RedisService } from "../../services/redis-service/redis.service";
+import { IPaginationPayload } from "../../interfaces/pagination.interface";
+import { SeismicService } from "../../services/seismic-service/seismic.service";
 
 @Route("earthquake")
 @Tags("Earthquake")
@@ -54,7 +54,6 @@ export class SeismicController {
 
     @Get("/place/:country")
     async getSeismicByCountryData(@Path() country: string): Promise<Seismic[]> {
-        console.log(typeof country);
         return await this.seismicService.getSeismicByCountryData(country);
     }
 

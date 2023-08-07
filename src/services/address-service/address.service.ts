@@ -26,3 +26,5 @@ export class AddressService {
         return await this.addressRepository.getDetailsById(id);
     }
 }
+
+export default new AddressService();

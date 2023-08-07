@@ -31,7 +31,7 @@ export class AddressSubscriber implements EntitySubscriberInterface<Seismic> {
         
         this.geo.gettingApproxAddress(geoPayload, process.env.GEO_LOCATION_URL)
         .then(async (geoResponse) => {
-            const properties = geoResponse.data.features[0].properties;
+            const properties = geoResponse.data.features[0].properties;  //TODO it always returns data in 0 position
             const addressPayload = await this.settingAddressProperties(properties);
     
             const addressSaved = await this.addressService.storeAddressData(addressPayload);

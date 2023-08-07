@@ -1,8 +1,8 @@
-import { Address } from "../entities/address";
+import { Address } from "../../entities/address";
 import { Get, Route, Tags, Path, Query} from "tsoa";
-import { RedisService } from "../services/redis-service/redis.service";
-import { AddressService } from "../services/address-service/address.service";
-import { IAddressPaginationPayload } from "../interfaces/address.pagination.interface";
+import { RedisService } from "../../services/redis-service/redis.service";
+import { AddressService } from "../../services/address-service/address.service";
+import { IAddressPaginationPayload } from "../../interfaces/address.pagination.interface";
 
 @Route("address")
 @Tags("Address")

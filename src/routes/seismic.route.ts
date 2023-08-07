@@ -1,5 +1,5 @@
 import * as express from "express";
-import { SeismicController } from "../controllers/seismic.controller";
+import { SeismicController } from "../controllers/seismic/seismic.controller";
 import { IPaginationPayload } from "../interfaces/pagination.interface";
 
 const router = express.Router();

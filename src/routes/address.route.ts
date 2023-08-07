@@ -1,5 +1,5 @@
 import * as express from "express";
-import { AddressController } from "../controllers/address.controller";
+import { AddressController } from "../controllers/address/address.controller";
 import { IAddressPaginationPayload } from "../interfaces/address.pagination.interface";
 
 const router = express.Router();
