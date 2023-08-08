@@ -32,12 +32,12 @@ export class AddressController {
     @Get("/paginate")
     async getAddressPaginationData(@Query() payload: IAddressPaginationPayload): Promise<Address[]> {
         let data;
-        const expKey = await this.redisService.checkExpRedisKey('address_pag');
+        const expKey = await this.redisService.checkExpRedisKey(payload);
         if(expKey <= 0) {
             data = await this.addressService.getAddressPaginationData(payload);
-            await this.redisService.setObjectKey('address_pag', data);
+            await this.redisService.setObjectKey(payload, data);
         } else {
-            data = await this.redisService.getRedis('address_pag');
+            data = await this.redisService.getRedis(payload);
         }
 
         return data;

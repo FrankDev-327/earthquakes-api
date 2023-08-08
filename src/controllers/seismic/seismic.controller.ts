@@ -20,13 +20,13 @@ export class SeismicController {
     @Get("/")
     async getPaginationEarthquakeData(@Query() payload: IPaginationPayload): Promise<Seismic[]> {
         let data;
-        const expKey = await this.redisService.checkExpRedisKey('seismic_info');
+        const expKey = await this.redisService.checkExpRedisKey(payload);
 
         if(expKey <= 0) {
             data = await this.seismicService.getPaginationEarthquakeData(payload);
-            await this.redisService.setObjectKey('seismic_info', data);
+            await this.redisService.setObjectKey(payload, data);
         } else {
-            data = await this.redisService.getRedis('seismic_info');
+            data = await this.redisService.getRedis(payload);
         }
 
         return data;
@@ -40,13 +40,13 @@ export class SeismicController {
     @Get("/search/:startDate/:endDate")
     async getSeismicBetweenDates(@Path() payload: IBetweenDatePayload): Promise<Seismic[]> {
         let data;
-        const expKey = await this.redisService.checkExpRedisKey('seismic_date');
+        const expKey = await this.redisService.checkExpRedisKey(payload);
         
         if(expKey <= 0) {
             data = await this.seismicService.getSeismicBetweenDates(payload);
-            await this.redisService.setObjectKey('seismic_date', data);
+            await this.redisService.setObjectKey(payload, data);
         } else {
-            data = await this.redisService.getRedis('seismic_date');
+            data = await this.redisService.getRedis(payload);
         }
 
         return data;
@@ -54,11 +54,31 @@ export class SeismicController {
 
     @Get("/place/:country")
     async getSeismicByCountryData(@Path() country: string): Promise<Seismic[]> {
-        return await this.seismicService.getSeismicByCountryData(country);
+        let data;
+        const expKey = await this.redisService.checkExpRedisKey(country);
+
+        if(expKey <= 0) {
+            data = await this.seismicService.getSeismicByCountryData(country);
+            await this.redisService.setObjectKey(country, data);
+        } else {
+            data = await this.redisService.getRedis(country);
+        }
+
+        return data;
     }
 
     @Get("/country-range/:place/:extent")
     async getSeismicByRangeData(@Path() payload: IRangePayload): Promise<Seismic[]> {
-        return await this.seismicService.getSeismicByRangeData(payload);
+        let data; 
+        const expKey = await this.redisService.checkExpRedisKey(payload);
+
+        if(expKey <= 0) {
+            data = await this.seismicService.getSeismicByRangeData(payload);
+            await this.redisService.setObjectKey(payload, data);
+        } else {
+            data = await this.redisService.getRedis(payload);
+        }
+
+        return data;
     }
 }
