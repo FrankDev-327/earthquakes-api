@@ -4,7 +4,7 @@ import { IRangePayload } from "../../interfaces/range.interface";
 import { IBetweenDatePayload } from "../../interfaces/between.date";
 import { RedisService } from "../../services/redis-service/redis.service";
 import { IPaginationPayload } from "../../interfaces/pagination.interface";
-import SeismicService from "../../services/seismic-service/seismic.service";
+import {SeismicService} from "../../services/seismic-service/seismic.service";
 
 @Route("earthquake")
 @Tags("Earthquake")

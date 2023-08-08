@@ -8,7 +8,6 @@ export interface ISeismicPayload {
     magtype: string;
     evtype: string;
     lon: number;
-    approx_address: string;
     auth: string;
     source_id: string;
     depth: number;

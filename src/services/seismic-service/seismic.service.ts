@@ -5,7 +5,7 @@ import { ISeismicPayload } from "../../interfaces/seismic.interface";
 import { SeismicRepository } from "../../repository/seismic.repository";
 import { IPaginationPayload } from "../../interfaces/pagination.interface";
 
-export default class SeismicService {
+export class SeismicService {
     private seismicRepository : SeismicRepository;
 
     constructor() {

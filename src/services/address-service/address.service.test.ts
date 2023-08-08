@@ -1,5 +1,9 @@
-import AddressService from './address.service';
-import { generateAddressesData, generateAddressPayload, generateAddressAddData } from '../../test/utils/address.generate';
+import { 
+    generateAddressesData, 
+    generateAddressPayload, 
+    generateAddressAddData 
+} from '../../test/utils/address.generate';
+import { AddressService } from './address.service';
 
 afterEach(() => {
     jest.resetAllMocks();

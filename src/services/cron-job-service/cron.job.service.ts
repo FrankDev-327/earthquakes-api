@@ -1,6 +1,6 @@
 import * as schedule from "node-schedule";
 import { AxiosService } from '../axios-services/axios.service';
-import SeismicService from "../seismic-service/seismic.service";
+import {SeismicService} from "../seismic-service/seismic.service";
 
 export class CronJob {
     private seismicService: SeismicService;

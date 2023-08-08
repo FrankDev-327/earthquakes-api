@@ -1,8 +1,8 @@
 import { Seismic } from "../entities/seismic";
 import { IAddressPayload } from "../interfaces/address.interface";
 import { GeoLocation } from "../services/geo-location/geo.location";
-import SeismicService from "../services/seismic-service/seismic.service";
-import AddressService from "../services/address-service/address.service";
+import {SeismicService} from "../services/seismic-service/seismic.service";
+import { AddressService } from "../services/address-service/address.service";
 import { EventSubscriber, EntitySubscriberInterface, InsertEvent } from "typeorm"
 
 @EventSubscriber()

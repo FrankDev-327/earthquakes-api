@@ -3,7 +3,7 @@ import { IAddressPayload } from "../../interfaces/address.interface";
 import { AddressRepository } from "../../repository/addresss.repository";
 import { IAddressPaginationPayload } from "../../interfaces/address.pagination.interface";
 
-export default class AddressService {
+export class AddressService {
     private addressRepository: AddressRepository;
     
     constructor() {
