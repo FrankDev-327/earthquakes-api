@@ -2,24 +2,12 @@ import { Address } from "./address";
 import { BaseModelEntity } from "./base.model.entity";
 import { Column, Entity, Index, Point, Unique, OneToOne, JoinColumn } from "typeorm";
 
-/* @Unique([
-  'lastupdate', 
-  'time',
-  'type',
-  'geometry',
-  'magtype',
-  'evtype',
-  'lon',
-  'lat',
-  'auth',
-  'source_id',
-  'depth',
-  'unid',
-  'mag',
-  'source_catalog',
-  'flynn_region'
-]) */
+
 @Entity('seismic')
+@Unique([
+  'id_feature',
+  'flynn_region'
+])
 export class Seismic extends BaseModelEntity {
     @Column()
     type: string;
@@ -27,7 +15,9 @@ export class Seismic extends BaseModelEntity {
     @Column("geometry",)
     geometry: Point;
 
-    @Column()
+    @Column({
+      nullable: true
+    })
     lastupdate: string;
   
     @Column()
@@ -37,7 +27,12 @@ export class Seismic extends BaseModelEntity {
     evtype: string;
   
     @Index('idx_name_lon')
-    @Column({type: "decimal", precision: 10, scale: 5, default: 0})
+    @Column({
+      type: "decimal", 
+      precision: 10, 
+      scale: 5, 
+      default: 0,
+    })
     lon: number;
 
     @OneToOne(() => Address, (address) => address.seismic, {
@@ -66,7 +61,12 @@ export class Seismic extends BaseModelEntity {
     time: string;
   
     @Index('idx_name_lan')
-    @Column({type: "decimal", precision: 10, scale: 5, default: 0})
+    @Column({
+      type: "decimal", 
+      precision: 10,
+      scale: 5, 
+      default: 0,
+    })
     lat: number;
   
     @Column()

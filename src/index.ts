@@ -32,11 +32,13 @@ databaseInit()
             Logger.info(`Server is up and running @ http://localhost:${PORT}`);
             const query = {
                 catalog: "EMSC-EMB",
-                limit: "5",
-                format: "json"
+                limit: "20",
+                format: "json",
+                orderby: 'time',
+                start: '2011-12-31'
             }
             
-            //job.scheduling(query, process.env.FDSN_URL);
+            job.scheduling(query, process.env.FDSN_URL);
         });
         
     })

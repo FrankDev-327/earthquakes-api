@@ -16,16 +16,38 @@ export class SeismicRepository {
     }
 
     async storeData(payload: ISeismicPayload[]): Promise<Seismic[]> {
-        const seismicCreated = this.seismicRepository.create(payload);
-        return await this.seismicRepository.save(seismicCreated);
-/*         const uniquePayload = this.reducingPayload(payload);
-        const seismicInserted = await this.seismicRepository.upsert(payload,
-            {
-                conflictPaths: ["time", "lastupdate",],
-                skipUpdateIfNoValuesChanged: true,
-                upsertType: "on-conflict-do-update",
+        payload.map(async (item) => {
+            config.transaction(async transactionalEntityManager => {
+           
+                const existingRecord = await transactionalEntityManager.findOne(Seismic, {
+                    where: {
+                        id_feature: item.id_feature,
+                        flynn_region: item.flynn_region
+                    }
+                });
+
+                if(existingRecord) {
+                    const data = await this.settingSeismicProperties(item);
+                    Object.assign(existingRecord, { ...data });
+                    await transactionalEntityManager.save(existingRecord);
+                } else {
+                    const newRecord = transactionalEntityManager.create(Seismic, item);
+                    await transactionalEntityManager.save(newRecord);
+                }
             });
-        return seismicInserted; */
+        });
+
+        /*const seismicInserted = await this.seismicRepository.upsert(payload,
+            {
+                conflictPaths: ["id_feature","flynn_region"],
+                skipUpdateIfNoValuesChanged: true,
+                upsertType: "upsert",
+            });
+
+        return seismicInserted;  */
+
+        return ;
+
     }
 
     async getDetails(id: string): Promise<Seismic> {
@@ -92,16 +114,23 @@ export class SeismicRepository {
         });
     }
 
-    private async reducingPayload(payload) {
-        const uniqueData = payload.reduce((acc: ISeismicPayload[], current: ISeismicPayload) => {
-            const existingRow = acc.find((item) => item.lastupdate === current.lastupdate && item.time === current.time);
-            if (!existingRow) {
-              acc.push(current);
-            }
-            return acc;
-          }, []);
-        console.log(uniqueData);
-        
-        return uniqueData;
+    private async settingSeismicProperties(data) {
+        return {
+            type: data?.type,
+            geometry : {
+                type: data?.geometry?.type,
+                coordinates: data.geometry?.coordinates
+            },
+            lastupdate: data.properties?.lastupdate,
+            address: data.properties?.address,
+            auth: data.properties?.auth,
+            source_id: data.properties?.source_id,
+            depth: data.properties?.depth,
+            unid: data.properties?.unid,
+            mag: data.properties?.mag,
+            time: data.properties?.time,
+            source_catalog: data.properties?.source_catalog,
+        }
     }
+
 }

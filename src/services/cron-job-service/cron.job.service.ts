@@ -15,7 +15,7 @@ export class CronJob {
 
         schedule.scheduleJob(rule, async () => {        
             const response = await AxiosService.fetchDataForCronJob(queryString, url);
-            response.data.features.map( async (item) => {
+            response.data.features?.map( async (item) => {
                 dataToInsert.push({
                     type: item.type,
                     geometry : {
@@ -26,16 +26,15 @@ export class CronJob {
                     id_feature: item.id,
                 });
             });
-            
+
             this.seismicService.storeSeismicInfo(dataToInsert)
             .then(() => {
-                console.log('data was inserted');
+                console.log('data was inserted or updated');
             })
             .catch(e => {
-                console.log('there is an error');
+                console.log('there is an error to create or update');
                 console.log(e);
             });
-            
         });
     }
 }
