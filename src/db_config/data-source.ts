@@ -1,8 +1,8 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Address } from "../entities/address";
 import { Seismic } from "../entities/seismic";
-import { AddressSubscriber } from "../subscribers/AddressSubscriber";
+import { SeismicSubscriber } from "../subscribers/SeismicSubscriber";
 
 const config = new DataSource({
     type: "postgres",
@@ -11,7 +11,7 @@ const config = new DataSource({
     synchronize: process.env.NODE_ENV !== 'prod',
     logging: true,
     entities: [Seismic, Address],
-    subscribers:[AddressSubscriber],
+    subscribers:[SeismicSubscriber],
 });
 
 export default config;

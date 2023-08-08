@@ -1,5 +1,6 @@
 import { Address } from "../entities/address";
-import { InitAppSource } from "../db_init/db.init";
+import config from "../db_config/data-source";
+import { getRepositoryEntityInstance } from "../db_init/db.init";
 import { IAddressPayload } from "../interfaces/address.interface";
 import { IAddressPaginationPayload } from "../interfaces/address.pagination.interface";
 
@@ -7,7 +8,7 @@ export class AddressRepository {
     private addressRepository;
 
     constructor() {
-        this.addressRepository = InitAppSource.getRepositoryEntityInstance(Address);
+        this.addressRepository = getRepositoryEntityInstance(Address);
     }
 
     async storeData(payload: IAddressPayload): Promise<Address> {

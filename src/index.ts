@@ -5,7 +5,7 @@ import * as express from 'express';
 import specs from './swagger/swaggerDoc';
 import responseLogger from './lib/responLogger';
 import * as swaggerUi from "swagger-ui-express";
-import { InitAppSource } from './db_init/db.init';
+import { databaseInit } from './db_init/db.init';
 import morganMiddleware from './config/morganMiddleware';
 import { Application, Request, Response } from "express";
 import { CronJob } from './services/cron-job-service/cron.job.service';
@@ -26,7 +26,7 @@ app.get( "/test", (req: Request, res: Response ) => {
     res.send( "Hello world!" );
 });
 
-InitAppSource.databaseInit()
+databaseInit()
     .then(() => {
         app.listen(PORT, async () => {
             Logger.info(`Server is up and running @ http://localhost:${PORT}`);

@@ -1,12 +1,17 @@
-import addressService from '../../services/address-service/address.service';
-import { generateAddressesData, generateAddressPayload, generateAddressData, generateAddressAddData } from '../../test/utils/address.generate';
+import AddressService from './address.service';
+import { generateAddressesData, generateAddressPayload, generateAddressAddData } from '../../test/utils/address.generate';
 
 afterEach(() => {
     jest.resetAllMocks();
 });
 
-describe('Address Controller', () => {
+describe('Address Service', () => {
     describe('get all addresses', () => {
+        let addressService: AddressService;
+        beforeAll(() => {
+            addressService = new AddressService();
+        });
+
         test('should return an empty array', async () => {
             const spy = jest.spyOn(addressService, 'getListAddresses').mockResolvedValueOnce([]);
             const addresses = await addressService.getListAddresses();       

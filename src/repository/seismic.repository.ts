@@ -1,16 +1,18 @@
 import { DateRange } from "../utils/helper";
-import { Seismic } from "../entities/seismic";
-import { InitAppSource } from "../db_init/db.init";
+import { Seismic } from  '../entities/seismic';
+import config from "../db_config/data-source";
 import { Between, Like, In, MoreThan } from "typeorm";
 import { IRangePayload } from "../interfaces/range.interface";
+import { getRepositoryEntityInstance } from "../db_init/db.init";
 import { IBetweenDatePayload } from "../interfaces/between.date";
 import { ISeismicPayload } from "../interfaces/seismic.interface";
 import { IPaginationPayload } from "../interfaces/pagination.interface";
 
 export class SeismicRepository {
     private seismicRepository;
+
     constructor() {
-        this.seismicRepository = InitAppSource.getRepositoryEntityInstance(Seismic);
+        this.seismicRepository = getRepositoryEntityInstance(Seismic);
     }
 
     async storeData(payload: ISeismicPayload[]): Promise<Seismic[]> {
@@ -36,7 +38,6 @@ export class SeismicRepository {
     async updateData(seismic: Seismic): Promise<Seismic> {
         return await this.seismicRepository.update(seismic.id, { ...seismic });
     }
-
 
     async getPaginationData(query: IPaginationPayload): Promise<Seismic[]> {
         return await this.seismicRepository.findAndCount({
