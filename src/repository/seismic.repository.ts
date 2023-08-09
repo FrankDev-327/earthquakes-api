@@ -1,7 +1,7 @@
 import { DateRange } from "../utils/helper";
 import { Seismic } from  '../entities/seismic';
 import config from "../db_config/data-source";
-import { Between, Like, In, MoreThan } from "typeorm";
+import { Between, MoreThan } from "typeorm";
 import { IRangePayload } from "../interfaces/range.interface";
 import { getRepositoryEntityInstance } from "../db_init/db.init";
 import { IBetweenDatePayload } from "../interfaces/between.date";

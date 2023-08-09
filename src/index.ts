@@ -31,14 +31,14 @@ databaseInit()
         app.listen(PORT, async () => {
             Logger.info(`Server is up and running @ http://localhost:${PORT}`);
             const query = {
-                catalog: "EMSC-EMB",
+                catalog: "EMSC-EMB", //TODO this value can't be changed
                 limit: "20",
                 format: "json",
                 orderby: 'time',
                 start: '2011-12-31'
             }
             
-            job.scheduling(query, process.env.FDSN_URL);
+            await job.scheduling(query, process.env.FDSN_URL);
         });
         
     })
