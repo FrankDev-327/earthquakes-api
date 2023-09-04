@@ -32,7 +32,7 @@ databaseInit()
             Logger.info(`Server is up and running @ http://localhost:${PORT}`);
             const query = {
                 catalog: "EMSC-EMB", //TODO this value can't be changed
-                limit: "20",
+                limit: "30",
                 format: "json",
                 orderby: 'time',
                 start: '2011-12-31'

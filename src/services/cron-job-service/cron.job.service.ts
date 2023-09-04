@@ -13,7 +13,7 @@ export class CronJob {
         
         const dataToInsert = [];
         const rule = new schedule.RecurrenceRule();
-        rule.second = 30, //TODO for test purpose it was set up like that but if you want to change, just do rule.minute = integerValue
+        rule.second = 10, //TODO for test purpose it was set up like that but if you want to change, just do rule.minute = integerValue
 
         schedule.scheduleJob(rule, async () => {        
             const response = await AxiosService.fetchDataForCronJob(queryString, url);

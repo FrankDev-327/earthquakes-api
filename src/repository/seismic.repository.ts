@@ -37,17 +37,7 @@ export class SeismicRepository {
             });
         });
 
-        /*const seismicInserted = await this.seismicRepository.upsert(payload,
-            {
-                conflictPaths: ["id_feature","flynn_region"],
-                skipUpdateIfNoValuesChanged: true,
-                upsertType: "upsert",
-            });
-
-        return seismicInserted;  */
-
         return ;
-
     }
 
     async getDetails(id: string): Promise<Seismic> {
